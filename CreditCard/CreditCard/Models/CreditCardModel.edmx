@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CreditCardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'listmanage.dbo.cash' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="cash">
+          <Property Name="cashid" Type="bigint" />
+          <Property Name="offerid" Type="bigint" />
+          <Property Name="employer" Type="varchar" MaxLength="500" />
+          <Property Name="monthlyincome" Type="int" />
+          <Property Name="military" Type="bit" />
+          <Property Name="paymethod" Type="varchar" MaxLength="500" />
+          <Property Name="payfrequency" Type="varchar" MaxLength="50" />
+          <Property Name="paydate1" Type="date" />
+          <Property Name="paydate2" Type="date" />
+          <Property Name="ssn" Type="varchar" MaxLength="50" />
+          <Property Name="aba" Type="varchar" MaxLength="50" />
+          <Property Name="ownrent" Type="varchar" MaxLength="50" />
+          <Property Name="timetocall" Type="varchar" MaxLength="50" />
+          <Property Name="licensenumber" Type="varchar" MaxLength="50" />
+          <Property Name="licensestate" Type="varchar" MaxLength="50" />
+          <Property Name="citizen" Type="bit" />
+          <Property Name="incomesource" Type="varchar" MaxLength="50" />
+          <Property Name="timeatjob" Type="int" />
+          <Property Name="occupation" Type="varchar" MaxLength="500" />
+          <Property Name="empaddress" Type="varchar" MaxLength="500" />
+          <Property Name="empcity" Type="varchar" MaxLength="500" />
+          <Property Name="empstate" Type="varchar" MaxLength="50" />
+          <Property Name="empzip" Type="varchar" MaxLength="10" />
+          <Property Name="bank" Type="varchar" MaxLength="100" />
+          <Property Name="accountnumber" Type="varchar" MaxLength="50" />
+          <Property Name="accounttype" Type="varchar" MaxLength="50" />
+          <Property Name="bankphone" Type="varchar" MaxLength="50" />
+          <Property Name="loanamount" Type="varchar" MaxLength="50" />
+          <Property Name="ref1name" Type="varchar" MaxLength="50" />
+          <Property Name="ref2name" Type="varchar" MaxLength="50" />
+          <Property Name="ref1phone" Type="varchar" MaxLength="50" />
+          <Property Name="ref2phone" Type="varchar" MaxLength="50" />
+          <Property Name="ref1relation" Type="varchar" MaxLength="50" />
+          <Property Name="ref2relation" Type="varchar" MaxLength="50" />
+          <Property Name="optin" Type="varchar" MaxLength="50" />
+          <Property Name="Column 35" Type="varchar" MaxLength="50" />
+          <Property Name="Column 36" Type="varchar" MaxLength="50" />
+          <Property Name="Column 37" Type="varchar" MaxLength="50" />
+          <Property Name="Column 38" Type="varchar" MaxLength="50" />
+          <Property Name="Column 39" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <EntityType Name="creditcard">
+          <Key>
+            <PropertyRef Name="cardnumber" />
+          </Key>
+          <Property Name="cardnumber" Type="varchar" MaxLength="16" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'listmanage.dbo.offers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <Function Name="CheckCreditCardIfExists" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cardnumber" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="CreditCardModelStoreContainer">
+          <EntitySet Name="creditcard" EntityType="Self.creditcard" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CreditCardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="creditcard">
+          <Key>
+            <PropertyRef Name="cardnumber" />
+          </Key>
+          <Property Name="cardnumber" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="CreditCardEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="creditcards" EntityType="Self.creditcard" />
+          <FunctionImport Name="CheckCreditCardIfExists">
+            <Parameter Name="cardnumber" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CreditCardModelStoreContainer" CdmEntityContainer="CreditCardEntities">
+          <EntitySetMapping Name="creditcards">
+            <EntityTypeMapping TypeName="CreditCardModel.creditcard">
+              <MappingFragment StoreEntitySet="creditcard">
+                <ScalarProperty Name="cardnumber" ColumnName="cardnumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CheckCreditCardIfExists" FunctionName="CreditCardModel.Store.CheckCreditCardIfExists" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
