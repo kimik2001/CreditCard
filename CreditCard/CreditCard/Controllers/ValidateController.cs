@@ -19,8 +19,7 @@ namespace CreditCard.Controllers
         public ResultModel CheckCard(string cardnumber, string expirydate)
         {
 
-            rm.cardtype = cardnumber;
-            rm.result = expirydate;
+            rm.validatation(cardnumber, expirydate);
 
             return rm;
         }
