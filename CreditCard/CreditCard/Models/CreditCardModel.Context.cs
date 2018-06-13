@@ -29,13 +29,31 @@ namespace CreditCard.Models
     
         public virtual DbSet<creditcard> creditcards { get; set; }
     
-        public virtual int CheckCreditCardIfExists(string cardnumber)
+        public virtual ObjectResult<Nullable<int>> CheckCreditCardIfExists(string cardnumber)
         {
             var cardnumberParameter = cardnumber != null ?
                 new ObjectParameter("cardnumber", cardnumber) :
                 new ObjectParameter("cardnumber", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CheckCreditCardIfExists", cardnumberParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CheckCreditCardIfExists", cardnumberParameter);
+        }
+    
+        public virtual ObjectResult<creditcard> CheckCreditCardIfExist(string cardnumber)
+        {
+            var cardnumberParameter = cardnumber != null ?
+                new ObjectParameter("cardnumber", cardnumber) :
+                new ObjectParameter("cardnumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<creditcard>("CheckCreditCardIfExist", cardnumberParameter);
+        }
+    
+        public virtual ObjectResult<creditcard> CheckCreditCardIfExist(string cardnumber, MergeOption mergeOption)
+        {
+            var cardnumberParameter = cardnumber != null ?
+                new ObjectParameter("cardnumber", cardnumber) :
+                new ObjectParameter("cardnumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<creditcard>("CheckCreditCardIfExist", mergeOption, cardnumberParameter);
         }
     }
 }
