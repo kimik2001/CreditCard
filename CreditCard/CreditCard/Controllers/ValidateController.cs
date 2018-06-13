@@ -27,9 +27,8 @@ namespace CreditCard.Controllers
                 {
                     using (CreditCardEntities cce = new CreditCardEntities())
                     {
-                        
-                        var exists = cce.CheckCreditCardIfExists(cardnumber);
-                        if (exists.ToString() == "0")
+                        var exists = cce.CheckCreditCardIfExist(cardnumber).ToList();
+                        if (exists.Count == 0)
                         {
                             rm.result = "Does not exist";
                         }

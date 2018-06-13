@@ -35,7 +35,13 @@
           <FunctionImport Name="CheckCreditCardIfExist" EntitySet="creditcards" ReturnType="Collection(CreditCardModel.creditcard)">
           <Parameter Name="cardnumber" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="checkexists" ReturnType="Collection(CreditCardModel.checkexists_Result)">
+          <Parameter Name="cardnumber" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="checkexists_Result">
+          <Property Type="Int32" Name="Column1" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -51,6 +57,13 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="CheckCreditCardIfExists" FunctionName="CreditCardModel.Store.CheckCreditCardIfExists" />
           <FunctionImportMapping FunctionImportName="CheckCreditCardIfExist" FunctionName="CreditCardModel.Store.CheckCreditCardIfExists" />
+          <FunctionImportMapping FunctionImportName="checkexists" FunctionName="CreditCardModel.Store.CheckCreditCardIfExists">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CreditCardModel.checkexists_Result">
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

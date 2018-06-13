@@ -55,5 +55,14 @@ namespace CreditCard.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<creditcard>("CheckCreditCardIfExist", mergeOption, cardnumberParameter);
         }
+    
+        public virtual ObjectResult<checkexists_Result> checkexists(string cardnumber)
+        {
+            var cardnumberParameter = cardnumber != null ?
+                new ObjectParameter("cardnumber", cardnumber) :
+                new ObjectParameter("cardnumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<checkexists_Result>("checkexists", cardnumberParameter);
+        }
     }
 }
